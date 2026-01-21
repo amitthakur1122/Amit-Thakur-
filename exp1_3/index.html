@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ================= CSS VARIABLES ================= */
+:root {
+    --bg-color: #f4f6f8;
+    --text-color: #333;
+    --card-color: #ffffff;
+    --primary-color: #1976d2;
+}
+
+/* Dark Theme */
+.dark-theme {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --card-color: #1e1e1e;
+    --primary-color: #90caf9;
+}
+
+/* ================= GLOBAL ================= */
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* ================= GRID LAYOUT ================= */
+.dashboard {
+    display: grid;
+    grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 60px 1fr;
+    min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+header {
+    grid-area: header;
+    background: var(--card-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--primary-color);
+    color: white;
+}
+
+/* ================= SIDEBAR ================= */
+aside {
+    grid-area: sidebar;
+    background: var(--card-color);
+    padding: 20px;
+}
+
+aside h2 {
+    margin-bottom: 15px;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    margin: 10px 0;
+}
+
+/* ================= MAIN CONTENT ================= */
+main {
+    grid-area: main;
+    padding: 20px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: var(--card-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-areas:
+            "header"
+            "main";
+        grid-template-columns: 1fr;
+    }
+
+    aside {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard" id="dashboard">
+
+    <!-- Sidebar -->
+    <aside>
+        <h2>Admin</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Users</li>
+            <li>Settings</li>
+        </ul>
+    </aside>
+
+    <!-- Header -->
+    <header>
+        <h3>Admin Dashboard</h3>
+        <button onclick="toggleTheme()">Toggle Theme</button>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <div class="cards">
+            <div class="card">Total Users<br><strong>120</strong></div>
+            <div class="card">Revenue<br><strong>₹50,000</strong></div>
+            <div class="card">Active Sessions<br><strong>32</strong></div>
+        </div>
+    </main>
+
+</div>
+
+<script>
+const body = document.body;
+
+/* Load theme from localStorage */
+if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-theme");
+}
+
+/* Toggle Theme */
+function toggleTheme() {
+    body.classList.toggle("dark-theme");
+
+    if (body.classList.contains("dark-theme")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
+    }
+}
+</script>
+
+</body>
+</html>
